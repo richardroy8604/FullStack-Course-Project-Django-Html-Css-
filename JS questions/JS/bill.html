@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+
+    <div style="padding: 10px; background-color: rgb(74, 139, 74); border-radius: 20px; text-align: center; ">
+        <h1 style="color: aliceblue;">Bill Generator</h1>
+    </div>
+    <style>
+        .container input[type="text"]{
+            display: block;
+            border-radius: 7px;
+            height: 20px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container" style="padding: 10px; background-color: darkgray; border-radius: 20px; display: flex; flex-direction: column; align-items: center;">
+        <input id="item1" type="text" placeholder="Enter Product 1">
+        <input id="item2" type="text" placeholder="Enter Product 2">
+        <input id="item3" type="text" placeholder="Enter Product 3">
+        <input id="item4" type="text" placeholder="Enter Product 4">
+        <input id="item5" type="text" placeholder="Enter Product 5">
+        <div style="margin-top: 20px;">
+            <button onclick="generatebill()" style="border-radius: 7px;height: 30px;width: 200px;margin-bottom: 10px;">Generate Bill</button>
+        </div>
+    </div>
+    <div class="result" style=" background-color: darkgray; border-radius: 20px; margin-top: 10px; display: flex; flex-direction: column; align-items: center;">
+        <h3 id="p1"></h3>
+        <h3 id="p2"></h3>
+        <h3 id="p3"></h3>
+        <h3 id="p4"></h3>
+        <h3 id="p5"></h3>
+        <h3 id="total"></h3>
+        <h3 id="avg"></h3>
+        <h3 id="highest"></h3>
+        <h3 id="value"></h3>
+
+    </div>
+    
+    
+    <script>
+        function generatebill(){
+            const item1= Number(document.getElementById("item1").value);
+            const item2= Number(document.getElementById("item2").value);  
+            const item3= Number(document.getElementById("item3").value); 
+            const item4= Number(document.getElementById("item4").value);  
+            const item5= Number(document.getElementById("item5").value);    
+            const total= item1+item2+item3+item4+item5;
+            const avg=total/5
+            const highest = Math.max(item1, item2, item3, item4, item5);
+            const max = Math.max(item1,item2,item3,item4,item5);
+            if (total > 5000) {
+                document.getElementById("value").innerHTML= "High Value Price"; 
+            }
+            else{
+                document.getElementById("value").innerHTML ="Normal Price";
+            }
+            document.getElementById("p1").innerHTML="Produc 1:"+item1;
+            document.getElementById("p2").innerHTML="Produc 2:"+item2;
+            document.getElementById("p3").innerHTML="Produc 3:"+item3;
+            document.getElementById("p4").innerHTML="Produc 4:"+item4;
+            document.getElementById("p5").innerHTML="Produc 5:"+item5;
+            document.getElementById("total").innerHTML="Total:"+total;
+            document.getElementById("avg").innerHTML="Average:"+avg;
+            document.getElementById("highest").innerHTML="Highest:"+highest;
+
+        }
+       
+    </script>
+</body>
+</html>

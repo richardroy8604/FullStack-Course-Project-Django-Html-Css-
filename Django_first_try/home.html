@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>
+        My Page
+
+    </title>
+</head>
+
+<body>
+
+    <div style="background:rgb(244, 15, 15);border:1px solid black;padding:10px;">
+        <img id="im" src="logo.jpg" width="100">
+        
+    </div>
+
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                <table border="1">
+                    <tr><td><a href="">2026 Regulations</a></td></tr>
+                    <tr><td><a href="">teams and Drivers</a></td></tr>
+                    <tr><td><a href="">Race Callander</a></td></tr>
+                    <tr><td><a href="">FIA</a></td></tr>
+                </table>
+            </td>
+           
+        
+
+            <td style="padding-left:300px;">
+                <img id="img" src="image1.jpg" width="1000">
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        var pics = ["image1.jpg", "image2.jpg", "image3.jpg"];
+        var n = 0;
+
+        setInterval(function() {
+            n++;
+            if(n == pics.length) {
+                n = 0;
+            }
+            document.getElementById("img").src = pics[n];
+        }, 2000);
+    </script>
+
+</body>
+</html>

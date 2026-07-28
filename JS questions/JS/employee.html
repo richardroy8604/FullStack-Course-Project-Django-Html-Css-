@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Salary Report</title>
+
+    <div style="padding: 10px; background-color: rgb(74, 139, 74); border-radius: 20px; text-align: center;">
+        <h1 style="color: aliceblue;">Employee Salary Report</h1>
+    </div>
+
+    <style>
+        .container input[type="text"]{
+            display: block;
+            border-radius: 7px;
+            height: 20px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" style="padding: 10px; background-color: darkgray; border-radius: 20px; display: flex; flex-direction: column; align-items: center;">
+
+    <input id="name1" type="text" placeholder="Enter Employee 1 Name">
+    <input id="salary1" type="text" placeholder="Enter Employee 1 Salary">
+
+    <input id="name2" type="text" placeholder="Enter Employee 2 Name">
+    <input id="salary2" type="text" placeholder="Enter Employee 2 Salary">
+
+    <input id="name3" type="text" placeholder="Enter Employee 3 Name">
+    <input id="salary3" type="text" placeholder="Enter Employee 3 Salary">
+
+    <input id="name4" type="text" placeholder="Enter Employee 4 Name">
+    <input id="salary4" type="text" placeholder="Enter Employee 4 Salary">
+
+    <input id="name5" type="text" placeholder="Enter Employee 5 Name">
+    <input id="salary5" type="text" placeholder="Enter Employee 5 Salary">
+
+    <div style="margin-top:20px;">
+        <button onclick="calc()" style="border-radius:7px;height:30px;width:200px;">
+            Generate Report
+        </button>
+    </div>
+</div>
+
+<div class="result" style="background-color: darkgray; border-radius:20px; margin-top:10px; display:flex; flex-direction:column; align-items:center;">
+
+    <h3 id="emp1"></h3>
+    <h3 id="emp2"></h3>
+    <h3 id="emp3"></h3>
+    <h3 id="emp4"></h3>
+    <h3 id="emp5"></h3>
+
+    <h3 id="highest"></h3>
+
+</div>
+
+<script>
+
+function calc()
+{
+    let maxSalary = 0;
+    let maxEmployee = "";
+
+    for(let i=1; i<=5; i++)
+    {
+        let name = document.getElementById("name"+i).value;
+        let salary = Number(document.getElementById("salary"+i).value);
+
+        let hra = salary * 0.10;
+        let da = salary * 0.15;
+        let net = salary + hra + da;
+
+        document.getElementById("emp"+i).innerHTML =
+        "Employee : " + name +
+        " | Basic Salary : " + salary +
+        " | HRA : " + hra +
+        " | DA : " + da +
+        " | Net Salary : " + net;
+
+        if(salary > maxSalary)
+        {
+            maxSalary = salary;
+            maxEmployee = name;
+        }
+    }
+
+    document.getElementById("highest").innerHTML =
+    "Employee with Highest Salary : " + maxEmployee + " (" + maxSalary + ")";
+}
+
+</script>
+
+</body>
+</html>

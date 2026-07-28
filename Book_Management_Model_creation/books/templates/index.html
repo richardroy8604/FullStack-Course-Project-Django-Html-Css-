@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management System</title>
+    <style>
+        /* Exact raw student style matching user's image */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2fff2;
+        }
+
+        /* Top Header */
+        .header {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #2e7d32;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        /* Raw form styling */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 250px;
+            padding: 3px;
+            border: 1px solid #767676;
+            font-size: 14px;
+        }
+
+        /* Raw HTML style button */
+        input[type="submit"], button, .btn-link {
+            background-color: #efefef;
+            border: 1px solid #767676;
+            padding: 3px 8px;
+            font-size: 13px;
+            cursor: pointer;
+            color: black;
+            border-radius: 2px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover, button:hover, .btn-link:hover {
+            background-color: #e5e5e5;
+        }
+
+        /* Alert / Messages */
+        .msg {
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            border: 1px solid #999;
+            background-color: #eef;
+            font-size: 14px;
+        }
+
+        /* Raw table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border: 1px solid #000;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            font-weight: bold;
+            background-color: #ffffff;
+        }
+
+        .section-box {
+            border: 1px solid #ccc;
+            padding: 18px;
+            margin-bottom: 25px;
+            background-color: #fafafa;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Green Header -->
+    <div class="header">
+        <h1>Book Management System</h1>
+    </div>
+
+    <!-- Green Navbar -->
+    <div class="navbar">
+        <a href="#add">Add Book</a>
+        <a href="#update">Update Book</a>
+        <a href="#delete">Delete Book</a>
+        <a href="#display">Display Books</a>
+    </div>
+
+    <!-- Central White Box -->
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="msg">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- 1. ADD BOOK FORM -->
+        <div id="add">
+            <h2>Add Book</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add">
+
+                <div class="form-group">
+                    <label for="name">Book Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year of Publication:</label>
+                    <input type="number" id="year" name="year_of_publication" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" step="0.01" id="price" name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pages">Number of Pages:</label>
+                    <input type="number" id="pages" name="number_of_pages" required>
+                </div>
+
+                <input type="submit" value="Add Book">
+            </form>
+        </div>
+
+        <br><hr><br>
+
+        <!-- 2. UPDATE BOOK BY ID WITH AUTOFILL -->
+        <div id="update" class="section-box">
+            <h2>Update Book with ID</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update">
+
+                <div class="form-group">
+                    <label for="update_id">Book ID to Update (type an ID e.g. 4):</label>
+                    <input type="number" id="update_id" name="book_id" value="{% if edit_book %}{{ edit_book.id }}{% endif %}" placeholder="Type Book ID..." oninput="autoFillUpdateForm()" onchange="autoFillUpdateForm()" required>
+                    <span id="autofill_status" style="font-size:12px; margin-left:10px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="u_name">Name:</label>
+                    <input type="text" id="u_name" name="name" value="{% if edit_book %}{{ edit_book.name }}{% endif %}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="u_author">Author:</label>
+                    <input type="text" id="u_author" name="author" value="{% if edit_book %}{{ edit_book.author }}{% endif %}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="u_year">Year of Publication:</label>
+                    <input type="number" id="u_year" name="year_of_publication" value="{% if edit_book %}{{ edit_book.year_of_publication }}{% endif %}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="u_price">Price:</label>
+                    <input type="number" step="0.01" id="u_price" name="price" value="{% if edit_book %}{{ edit_book.price }}{% endif %}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="u_pages">Number of Pages:</label>
+                    <input type="number" id="u_pages" name="number_of_pages" value="{% if edit_book %}{{ edit_book.number_of_pages }}{% endif %}" required>
+                </div>
+
+                <input type="submit" value="Update Book">
+            </form>
+        </div>
+
+        <!-- 3. DELETE BOOK BY ID -->
+        <div id="delete" class="section-box">
+            <h2>Delete Book with ID</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="delete">
+
+                <div class="form-group">
+                    <label for="del_id">Book ID to Delete:</label>
+                    <input type="number" id="del_id" name="book_id" placeholder="e.g. 7" required>
+                </div>
+
+                <input type="submit" value="Delete Book">
+            </form>
+        </div>
+
+        <br>
+
+        <!-- 4. DISPLAY TABLE -->
+        <div id="display">
+            <h2>All Books</h2>
+            {% if books %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Book Name</th>
+                            <th>Author</th>
+                            <th>Year of Publication</th>
+                            <th>Price</th>
+                            <th>Number of Pages</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ book.id }}</td>
+                                <td>{{ book.name }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.year_of_publication }}</td>
+                                <td>{{ book.price }}</td>
+                                <td>{{ book.number_of_pages }}</td>
+                                <td>
+                                    <a href="/?edit_id={{ book.id }}#update" class="btn-link">Edit</a>
+                                    <form method="POST" action="" style="display:inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="book_id" value="{{ book.id }}">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No books available in the database.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- Green Footer -->
+    <div class="footer">
+        2026 Book Management System
+    </div>
+
+    <script>
+        // Inline books database for instant auto-fill when typing ID
+        const booksData = {{ books_json|safe }};
+
+        function autoFillUpdateForm() {
+            const idInput = document.getElementById('update_id');
+            const selectedId = parseInt(idInput.value);
+            const book = booksData.find(b => b.id === selectedId);
+
+            const nameInput = document.getElementById('u_name');
+            const authorInput = document.getElementById('u_author');
+            const yearInput = document.getElementById('u_year');
+            const priceInput = document.getElementById('u_price');
+            const pagesInput = document.getElementById('u_pages');
+            const statusMsg = document.getElementById('autofill_status');
+
+            if (book) {
+                nameInput.value = book.name;
+                authorInput.value = book.author;
+                yearInput.value = book.year_of_publication;
+                priceInput.value = book.price;
+                pagesInput.value = book.number_of_pages;
+                statusMsg.innerText = "✓ Loaded: " + book.name;
+                statusMsg.style.color = "green";
+            } else {
+                if (idInput.value.trim() !== "") {
+                    statusMsg.innerText = "✖ No book with ID " + idInput.value;
+                    statusMsg.style.color = "red";
+                } else {
+                    statusMsg.innerText = "";
+                }
+            }
+        }
+
+        window.onload = function() {
+            if (document.getElementById('update_id').value) {
+                autoFillUpdateForm();
+            }
+        };
+    </script>
+
+</body>
+</html>
