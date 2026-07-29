@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Volunteer Management System
+        {% endblock %}
+    </title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4fff4;
+        }
+
+        header {
+            background-color: green;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #2e8b57;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            
+        }
+
+        .content {
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border: 1px solid #ccc;
+        }
+
+        footer {
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Volunteer Management System</h1>
+    </header>
+
+    <nav>
+        <a href="{% url "accounts" %}">Home</a>
+        <a href="{% url "Volunteers" %}">Events</a>
+        <a href="{% url "events" %}">Volunteers</a>
+        <a href="{% url "accounts" %}">About</a>
+        <a href="{% url "add_contact" %}">Add Contact</a>
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p> 2026 Volunteer Management System</p>
+    </footer>
+
+</body>
+</html>

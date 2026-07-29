@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Add Contact
+{% endblock %}
+
+{% block content %}
+    <h2>Add Contact</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="contact_number">Contact Number:</label><br>
+        <input type="tel" id="contact_number" name="contact_number" required><br><br>
+
+        <input type="submit" value="Add Contact">
+    </form>
+    
+    <table style="width:100%; border: 1px solid black; border-collapse: collapse; padding: 10px; margin-top: 15px;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 8px;">Name</th>
+                <th style="border: 1px solid black; padding: 8px;">Contact Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contacts in cont %}
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">{{ contacts.name }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ contacts.contact_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
