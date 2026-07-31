@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Courses Offered
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 1px; background-color: aliceblue;min-height: 400px;">
+    <h2>Courses Offered</h2>
+    <p>Below is a list of courses available for registration.</p>
+    <table border="3" style="width: 80%; margin: 0 auto; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.course_code }}</td>
+                <td>{{ course.title }}</td>
+                <td>{{ course.description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No courses available at the moment.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
