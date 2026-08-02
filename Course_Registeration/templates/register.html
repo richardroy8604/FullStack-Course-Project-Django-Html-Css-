@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+<div style="background-color: aliceblue; padding: 20px; border-radius: 5px; margin: 0 auto; max-width: 90%;">
+    <h2 style="color: #064760; text-align: center;">Register</h2>
+    {% if messages %}
+    {% for message in messages %}
+    <p style="padding: 10px; background-color: #064760; color: white; border-radius: 5px; text-align: center;">
+        {{ message }}
+    </p>
+    {% endfor %}
+    {% endif %}
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label for="student">Select Student :</label>
+        <select name="student" id="student" required>
+            <option value="" selected>Select a Student</option>
+            {% for student in stud %}
+            <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="course">Select Course:</label>
+        <select name="course_id" id="course_id" required>
+            <option value="" selected>Select a Course</option>
+            {% for course in cours %}
+            <option value="{{ course.id }}">{{course.title}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit"
+            style="background-color: #064760; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Register</button>
+
+
+    </form>
+    <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Student</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Course</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in enr %}
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ e.student.name }}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ e.course.title }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+{% endblock %}
