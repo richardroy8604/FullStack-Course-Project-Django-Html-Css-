@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Employee - Employee Management System
+{% endblock %}
+
+{% block content %}
+<div style="background-color: white; padding: 20px; border-radius: 5px; max-width: 450px; margin: auto; text-align: center;">
+    <h2 style="color: #064760;">Delete Employee</h2>
+    <p>Are you sure you want to delete <strong>{{ employee.name }}</strong> ({{ employee.role }})?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="background-color: red; color: white; padding: 8px 16px; border: none; cursor: pointer;">Yes, Delete</button>
+        <a href="{% url 'employee_list' %}" style="margin-left: 15px; text-decoration: none; color: #555;">Cancel</a>
+    </form>
+</div>
+{% endblock %}

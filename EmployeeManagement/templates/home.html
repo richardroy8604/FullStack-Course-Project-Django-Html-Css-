@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home - Employee Management System
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 10px; min-height: 350px; background-color: aliceblue; padding: 20px;">
+    <h2 style="color: #064760; margin-top: 100px;">Welcome to the Employee Management System</h2>
+    <p>Use the navigation above to view, add, edit, and manage employee records easily.</p>
+    <br>
+    <a href="{% url 'employee_list' %}" style="background-color: #298624; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">View Employee List</a>
+</div>
+{% endblock %}

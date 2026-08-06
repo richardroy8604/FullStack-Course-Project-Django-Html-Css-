@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+                Employee Management System
+            {% endblock %}
+        </title>
+        <style>
+            header{
+                background-color: #064760;
+                padding: 20px;
+                text-align: center;
+            }
+            footer{
+                background-color: #064760;
+                padding: 10px;
+                text-align: center;
+                color: white;
+            }
+            nav{
+                background-color: #298624;
+                padding: 10px;
+                text-align: center;
+            }
+            nav a{
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+            }
+            nav a:hover{
+                text-decoration: underline;
+            }
+        </style>
+
+    </head>
+    <body>
+        <header>
+            <h1 style="color: white;" >Employee Management System</h1>
+        </header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'employee_list' %}">Employees</a>
+            <a href="{% url 'add_employee' %}">Add Employee</a>
+        </nav>
+
+        <div class="content" style="padding: 20px; background-color: antiquewhite; min-height: 450px;">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+       
+
+        <footer>
+            <p>&copy; 2024 Employee Management System. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
