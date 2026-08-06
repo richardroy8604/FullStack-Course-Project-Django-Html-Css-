@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+           Login Page
+        </title>
+        <style>
+            header{
+                background-color: #064760;
+                padding: 20px;
+                text-align: center;
+            }
+            footer{
+                background-color: #064760;
+                padding: 10px;
+                text-align: center;
+                color: white;
+            }
+            nav{
+                background-color: #298624;
+                padding: 10px;
+                text-align: center;
+            }
+            nav a{
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+            }
+            nav a:hover{
+                text-decoration: underline;
+            }
+            
+        </style>
+
+    </head>
+    <body>
+        <header>
+            <h1 style="color: white;" >Login Page</h1>
+        </header>
+
+        <div class="content" style="padding: 20px; background-color: antiquewhite;  ">
+            <div class="form-container" style="max-width: 400px; margin: 0 auto; background-color: aliceblue; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <br>
+                    <input type="text" id="username" name="username" required style="width: 90%; padding: 8px; margin-bottom: 10px; border: 3px solid #ccc; border-radius: 4px;">
+                    <br><br>
+                    <label for="password">Password:</label>
+                    <br>
+                    <input type="password" id="password" name="password" required style="width: 90%; padding: 8px; margin-bottom: 10px; border: 3px solid #ccc; border-radius: 4px;">
+                    <br><br>
+                    <div style="text-align: center;">
+                        <button type="submit" style="background-color: #298624; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+       
+
+        <footer>
+            <p> 2024 Login Learning. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
