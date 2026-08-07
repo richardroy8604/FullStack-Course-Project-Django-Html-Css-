@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def login_view(request):
@@ -11,7 +12,8 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('home')  # Redirect to a success page.
-        return render(request, 'login.html', {'error': 'Invalid username or password.'})
+        messages.error(request, 'Invalid username or password.')
+        return render(request, 'login.html')
 
 
     return render(request, 'login.html')
