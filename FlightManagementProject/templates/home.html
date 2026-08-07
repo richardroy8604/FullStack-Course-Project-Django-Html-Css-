@@ -4,22 +4,15 @@
 
 {% block content %}
 <div style="max-width: 1000px; margin: 0 auto;">
-    <!-- Dashboard Statistics -->
-    <h2 style="color: #064760; text-align: center; margin-bottom: 20px;">System Dashboard</h2>
-    <div style="display: flex; justify-content: space-around; margin-bottom: 30px; gap: 15px;">
-        <div style="flex: 1; background-color: aliceblue; padding: 20px; text-align: center; border-radius: 6px; border: 2px solid #064760;">
-            <h3 style="color: #064760; margin: 0;">Total Flights</h3>
-            <p style="font-size: 32px; font-weight: bold; color: #298624; margin: 10px 0 0 0;">{{ total_flights }}</p>
-        </div>
-        <div style="flex: 1; background-color: aliceblue; padding: 20px; text-align: center; border-radius: 6px; border: 2px solid #064760;">
-            <h3 style="color: #064760; margin: 0;">Total Passengers</h3>
-            <p style="font-size: 32px; font-weight: bold; color: #298624; margin: 10px 0 0 0;">{{ total_passengers }}</p>
-        </div>
-        <div style="flex: 1; background-color: aliceblue; padding: 20px; text-align: center; border-radius: 6px; border: 2px solid #064760;">
-            <h3 style="color: #064760; margin: 0;">Total Bookings</h3>
-            <p style="font-size: 32px; font-weight: bold; color: #298624; margin: 10px 0 0 0;">{{ total_bookings }}</p>
-        </div>
+    {% if user.is_staff %}
+    <h2 style="color: #064760;">System Dashboard</h2>
+    <div style="background-color: aliceblue; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+        <p><strong>Total Flights:</strong> {{ total_flights }} | <strong>Total Passengers:</strong> {{ total_passengers }} | <strong>Total Bookings:</strong> {{ total_bookings }}</p>
     </div>
+    {% else %}
+    <h2 style="color: #064760;">Welcome, {{ user.first_name|default:user.username }}!</h2>
+    <p>Search and book available flights below.</p>
+    {% endif %}
 
     <!-- Search Flights -->
     <div style="background-color: aliceblue; padding: 20px; border-radius: 6px; margin-bottom: 25px; border: 1px solid #ccc;">
