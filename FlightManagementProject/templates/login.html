@@ -1,75 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-           Login Page
-        </title>
-        <style>
-            header{
-                background-color: #064760;
-                padding: 20px;
-                text-align: center;
-            }
-            footer{
-                background-color: #064760;
-                padding: 10px;
-                text-align: center;
-                color: white;
-            }
-            nav{
-                background-color: #298624;
-                padding: 10px;
-                text-align: center;
-            }
-            nav a{
-                color: white;
-                text-decoration: none;
-                margin: 0 10px;
-            }
-            nav a:hover{
-                text-decoration: underline;
-            }
-            
-        </style>
+{% extends 'base.html' %}
 
-    </head>
-    <body>
-        <header>
-            <h1 style="color: white;" >Login Page</h1>
-        </header>
+{% block title %}Login - Flight Management System{% endblock %}
 
-        <div class="content" style="padding: 20px; background-color: antiquewhite;  ">
-            <div class="form-container" style="max-width: 400px; margin: 0 auto; background-color: aliceblue; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                <div class="messafes">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="message" style="text-align: center;background-color: rgb(254, 255, 255);color: red; margin-bottom: 10px;">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
-                <form action="{% url 'login' %}" method="post">
-                    {% csrf_token %}
-                    <label for="username">Username:</label>
-                    <br>
-                    <input type="text" id="username" name="username" required style="width: 90%; padding: 8px; margin-bottom: 10px; border: 3px solid #ccc; border-radius: 4px;">
-                    <br><br>
-                    <label for="password">Password:</label>
-                    <br>
-                    <input type="password" id="password" name="password" required style="width: 90%; padding: 8px; margin-bottom: 10px; border: 3px solid #ccc; border-radius: 4px;">
-                    <br><br>
-                    <div style="text-align: center;">
-                        <button type="submit" style="background-color: #298624; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Login</button>
-                    </div>
-                </form>
-            </div>
+{% block content %}
+<div style="max-width: 400px; margin: 30px auto; background-color: aliceblue; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border: 1px solid #ccc;">
+    <h2 style="color: #064760; text-align: center; margin-top: 0;">User Login</h2>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <label for="username" style="font-weight: bold;">Username:</label>
+        <br>
+        <input type="text" id="username" name="username" required style="width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 15px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        
+        <label for="password" style="font-weight: bold;">Password:</label>
+        <br>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 20px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn" style="width: 100%; padding: 10px; font-size: 16px;">Login</button>
         </div>
-       
-
-        <footer>
-            <p> 2024 Login Learning. All rights reserved.</p>
-        </footer>
-    </body>
-</html>
+    </form>
+    <p style="text-align: center; margin-top: 15px;">
+        Don't have an account? <a href="{% url 'register' %}" style="color: #064760; font-weight: bold;">Register as Passenger</a>
+    </p>
+</div>
+{% endblock %}

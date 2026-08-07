@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Flight - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 550px; margin: 20px auto; background-color: aliceblue; padding: 25px; border-radius: 8px; border: 1px solid #ccc;">
+    <h2 style="color: #064760; text-align: center; margin-top: 0;">Flight Booking Module</h2>
+    <form method="post" action="{% url 'book_flight' %}">
+        {% csrf_token %}
+
+        {% if user.is_staff %}
+            <div style="margin-bottom: 15px;">
+                <label for="passenger" style="font-weight: bold;">Select Passenger:</label>
+                <select id="passenger" name="passenger" required style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    <option value="">-- Choose Passenger --</option>
+                    {% for p in passengers %}
+                        <option value="{{ p.pk }}">{{ p.first_name }} {{ p.last_name }} (Passport: {{ p.passport_number }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% else %}
+            {% if passenger_profile %}
+                <div style="margin-bottom: 15px; padding: 10px; background-color: #e9ecef; border-radius: 4px;">
+                    <strong>Passenger Name:</strong> {{ passenger_profile.first_name }} {{ passenger_profile.last_name }}<br>
+                    <strong>Passport Number:</strong> {{ passenger_profile.passport_number }}
+                    <input type="hidden" name="passenger" value="{{ passenger_profile.pk }}">
+                </div>
+            {% else %}
+                <p style="color: red;">No passenger profile linked to your account. Please contact admin.</p>
+            {% endif %}
+        {% endif %}
+
+        <div style="margin-bottom: 20px;">
+            <label for="flight" style="font-weight: bold;">Select Flight:</label>
+            <select id="flight" name="flight" required style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                <option value="">-- Choose Available Flight --</option>
+                {% for f in flights %}
+                    <option value="{{ f.pk }}" {% if selected_flight and selected_flight.pk == f.pk %}selected{% endif %}>
+                        {{ f.flight_number }} - {{ f.source }} to {{ f.destination }} ({{ f.departure_date }} at {{ f.departure_time }}) - ${{ f.price }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <a href="{% url 'home' %}" class="btn" style="background-color: #6c757d;">Cancel</a>
+            <button type="submit" class="btn" style="padding: 10px 20px; font-size: 16px;">Confirm Booking</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

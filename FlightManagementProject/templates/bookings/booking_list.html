@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Flight Bookings - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 style="color: #064760; margin: 0;">
+            {% if user.is_staff %}All Passenger Bookings{% else %}My Flight Bookings{% endif %}
+        </h2>
+        <a href="{% url 'book_flight' %}" class="btn">+ Book New Flight</a>
+    </div>
+
+    {% if bookings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Passenger</th>
+                    <th>Flight No.</th>
+                    <th>Route</th>
+                    <th>Departure</th>
+                    <th>Booking Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><strong>{{ b.passenger.first_name }} {{ b.passenger.last_name }}</strong></td>
+                        <td><strong>{{ b.flight.flight_number }}</strong></td>
+                        <td>{{ b.flight.source }} &rarr; {{ b.flight.destination }}</td>
+                        <td>{{ b.flight.departure_date }} {{ b.flight.departure_time }}</td>
+                        <td>{{ b.booking_date|date:"Y-m-d H:i" }}</td>
+                        <td><span style="color: green; font-weight: bold;">{{ b.status }}</span></td>
+                        <td>
+                            <a href="{% url 'booking_delete' b.pk %}" class="btn btn-danger" style="padding: 4px 8px; font-size: 13px;">Cancel Booking</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div style="background-color: aliceblue; padding: 20px; border-radius: 5px; text-align: center; margin-top: 20px;">
+            <p>No bookings found. <a href="{% url 'book_flight' %}" style="color: #064760; font-weight: bold;">Click here to book a flight</a>.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

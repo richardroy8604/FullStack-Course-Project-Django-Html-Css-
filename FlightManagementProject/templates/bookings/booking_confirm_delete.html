@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancel Booking - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 30px auto; background-color: aliceblue; padding: 25px; border-radius: 8px; border: 1px solid #ccc; text-align: center;">
+    <h2 style="color: #c9302c; margin-top: 0;">Cancel Booking</h2>
+    <p>Are you sure you want to cancel the booking for passenger <strong>{{ booking.passenger }}</strong> on Flight <strong>{{ booking.flight.flight_number }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-top: 20px; display: flex; justify-content: space-around;">
+            <a href="{% url 'booking_list' %}" class="btn" style="background-color: #6c757d;">Keep Booking</a>
+            <button type="submit" class="btn btn-danger">Yes, Cancel Booking</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

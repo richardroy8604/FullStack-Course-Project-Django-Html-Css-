@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 20px auto; background-color: aliceblue; padding: 25px; border-radius: 8px; border: 1px solid #ccc;">
+    <h2 style="color: #064760; text-align: center; margin-top: 0;">{{ title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 12px;">
+            <label for="id_flight_number" style="font-weight: bold;">Flight Number:</label>
+            <input type="text" id="id_flight_number" name="flight_number" value="{{ form.flight_number.value|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label for="id_source" style="font-weight: bold;">Source:</label>
+                <input type="text" id="id_source" name="source" value="{{ form.source.value|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="id_destination" style="font-weight: bold;">Destination:</label>
+                <input type="text" id="id_destination" name="destination" value="{{ form.destination.value|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label for="id_departure_date" style="font-weight: bold;">Departure Date:</label>
+                <input type="date" id="id_departure_date" name="departure_date" value="{{ form.departure_date.value|stringformat:'Y-m-d'|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="id_departure_time" style="font-weight: bold;">Departure Time:</label>
+                <input type="time" id="id_departure_time" name="departure_time" value="{{ form.departure_time.value|time:'H:i'|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <div style="flex: 1;">
+                <label for="id_capacity" style="font-weight: bold;">Capacity:</label>
+                <input type="number" id="id_capacity" name="capacity" value="{{ form.capacity.value|default:'100' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="id_price" style="font-weight: bold;">Price ($):</label>
+                <input type="number" step="0.01" id="id_price" name="price" value="{{ form.price.value|default:'' }}" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <a href="{% url 'flight_list' %}" class="btn" style="background-color: #6c757d;">Cancel</a>
+            <button type="submit" class="btn">Save Flight</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

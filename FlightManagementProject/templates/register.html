@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Passenger Registration - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 20px auto; background-color: aliceblue; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border: 1px solid #ccc;">
+    <h2 style="color: #064760; text-align: center; margin-top: 0;">Passenger Registration</h2>
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label for="first_name" style="font-weight: bold;">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="last_name" style="font-weight: bold;">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label for="username" style="font-weight: bold;">Username:</label>
+            <input type="text" id="username" name="username" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label for="email" style="font-weight: bold;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label for="phone" style="font-weight: bold;">Phone:</label>
+                <input type="text" id="phone" name="phone" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="passport_number" style="font-weight: bold;">Passport Number:</label>
+                <input type="text" id="passport_number" name="passport_number" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <div style="flex: 1;">
+                <label for="password" style="font-weight: bold;">Password:</label>
+                <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label for="confirm_password" style="font-weight: bold;">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required style="width: 100%; padding: 8px; margin-top: 4px; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn" style="width: 100%; padding: 10px; font-size: 16px;">Register</button>
+        </div>
+    </form>
+    <p style="text-align: center; margin-top: 15px;">
+        Already registered? <a href="{% url 'login' %}" style="color: #064760; font-weight: bold;">Login here</a>
+    </p>
+</div>
+{% endblock %}

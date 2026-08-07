@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Passenger Management - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 style="color: #064760; margin: 0;">Passenger Management</h2>
+        <a href="{% url 'passenger_create' %}" class="btn">+ Add New Passenger</a>
+    </div>
+
+    {% if passengers %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Passport Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in passengers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><strong>{{ p.first_name }} {{ p.last_name }}</strong></td>
+                        <td>{{ p.email }}</td>
+                        <td>{{ p.phone }}</td>
+                        <td>{{ p.passport_number }}</td>
+                        <td>
+                            <a href="{% url 'passenger_update' p.pk %}" class="btn" style="padding: 4px 8px; font-size: 13px;">Edit</a>
+                            <a href="{% url 'passenger_delete' p.pk %}" class="btn btn-danger" style="padding: 4px 8px; font-size: 13px;">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div style="background-color: aliceblue; padding: 20px; border-radius: 5px; text-align: center; margin-top: 20px;">
+            <p>No passengers registered. Click above to add a passenger.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

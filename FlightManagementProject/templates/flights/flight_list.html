@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Flight Management - Flight Management System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 style="color: #064760; margin: 0;">Flight Management</h2>
+        {% if user.is_staff %}
+            <a href="{% url 'flight_create' %}" class="btn">+ Add New Flight</a>
+        {% endif %}
+    </div>
+
+    {% if flights %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Flight No.</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Departure Date</th>
+                    <th>Time</th>
+                    <th>Capacity</th>
+                    <th>Price ($)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flight in flights %}
+                    <tr>
+                        <td><strong>{{ flight.flight_number }}</strong></td>
+                        <td>{{ flight.source }}</td>
+                        <td>{{ flight.destination }}</td>
+                        <td>{{ flight.departure_date }}</td>
+                        <td>{{ flight.departure_time }}</td>
+                        <td>{{ flight.capacity }}</td>
+                        <td>${{ flight.price }}</td>
+                        <td>
+                            {% if user.is_staff %}
+                                <a href="{% url 'flight_update' flight.pk %}" class="btn" style="padding: 4px 8px; font-size: 13px;">Edit</a>
+                                <a href="{% url 'flight_delete' flight.pk %}" class="btn btn-danger" style="padding: 4px 8px; font-size: 13px;">Delete</a>
+                            {% else %}
+                                <a href="{% url 'book_flight_select' flight.pk %}" class="btn" style="padding: 4px 8px; font-size: 13px;">Book</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div style="background-color: aliceblue; padding: 20px; border-radius: 5px; text-align: center; margin-top: 20px;">
+            <p>No flights available at the moment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
